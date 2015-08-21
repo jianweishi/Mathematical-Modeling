@@ -1,6 +1,6 @@
 ﻿#图论算法
 tags:图论 MATLAB 算法
-*matlab代码托管于[github](http://www.github.com)*
+*matlab代码托管于[github](https://github.com/jianweishi/Mathematical-Modeling/tree/master)*
 ### Floyd算法
  *基本思想:*
 
@@ -21,6 +21,9 @@ create a new matrix path with the same size of A
 //the matrix path records the edges of every step 
 B=A;
 length=A.length;
+for i=1 to length
+    for j=1 to length
+        path(i,j)=j;
 for k=1 to length
     for i=1 to length
         for j=1 to length
@@ -40,12 +43,31 @@ return (B,path);
 - 重复步骤$2和3$直到所有顶点都包含在S中。
 
 *伪代码*
-```
-Dijkstra(v,w)
-//v为源点，w为邻接矩阵
-create a list S with an element v
 
-```
+- 初始化
+> $INITIALIZE-SINGLE-SOURCE(G,s)$
+ $for$ $each$ $vertex$ $v$ $\in$ $G.v$
+$\qquad$$v.d=\infty$
+$\qquad$$v.\pi=NIL$
+$s.d=0$       
+
+- 松弛
+>$RELAX(u,v,w)$
+$if\quad v.d>u.d+w(u,v)$
+$\qquad v.d=u.d+w(u,v)$
+$\qquad v.\pi=u$
+
+- $Dijkstra$算法
+> $DIJKSTRA(G,w,s)$
+$INITIALIZE-SINGLE-SOURCE(G,s)$
+$S=\emptyset$
+$Q=G.V$
+$while\ Q\neq\emptyset$
+$\qquad\ \ u=EXTRACT-MIN(Q)$
+$\qquad\ \ S=S\bigcup\left\{u\right\} $
+$\qquad\ \ for\ each\ vertex\ v \in G.Adj[u] $
+$\qquad\qquad\ RELAX(u,v,w)$
+
 [^distance]:距离的定义：每个顶点对应一个距离，$S$中的顶点的距离就是从$v$到此顶点的最短路径长度，$U$中的顶点的距离，是从$v$到此顶点只包括$S$中的顶点为中间顶点的当前最短路径长度。
 
 
